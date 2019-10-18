@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+    <script src="cfb.js"></script>
+    <script>
+        var cfb = new CFB({
+            show_desktop: true,
+            buttons:[
+                new CFB.Button({preset: 'email', trigger: function(){
+                    var msg = 'Hello.\nI want more info about your services';
+                    var subject = 'Give me more info';
+                    document.location.href = "mailto:info@yourdomain.com?subject="
+                        + encodeURIComponent(subject)
+                        + "&body=" + encodeURIComponent(msg);
+                }}),
+                new CFB.Button({preset: 'call', trigger: function(){
+                    document.location.href = "tel:1234567890";
+                }}),
+                new CFB.Button({preset: 'whatsapp', trigger: function(){
+                    var a = document.createElement('a');
+                    a.target = "_blank";
+                    a.href = "https://api.whatsapp.com/send?phone=1234567890";
+                    a.click();
+                }}),
+            ]
+        });
+        cfb.cfb_group.addEventListener('cfb:open', function(){
+            alert('you opened me');
+        });
+        cfb.cfb_group.addEventListener('cfb:close', function(){
+            alert('you closed me');
+        });
+        cfb.cfb_group.addEventListener('cfb:trigger:email', function(){
+            alert('you click me email');
+        });
+        cfb.cfb_group.addEventListener('cfb:trigger:call', function(){
+            alert('you click me call');
+        });
+        cfb.cfb_group.addEventListener('cfb:trigger:whatsapp', function(){
+            alert('you click me whatsapp');
+        });
+    </script>
+</body>
+</html>
